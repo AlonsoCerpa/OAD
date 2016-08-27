@@ -1,0 +1,15 @@
+# depslib dependency file v1.0
+1472189949 source:/home/alonso/Escritorio/CifradoTxts/inversoModular.cpp
+	<iostream>
+	<vector>
+
+1472189948 source:/home/alonso/Escritorio/Cifrados/CifradoTxts/inversoModular.cpp
+	<iostream>
+	<vector>
+
+1472217260 source:/home/alonso/Escritorio/Cifrados/CifradoTxts/inversoMult.cpp
+	"inversoMult.h"
+
+1472217260 /home/alonso/Escritorio/Cifrados/CifradoTxts/inversoMult.h
+	<vector>
+
