@@ -3,38 +3,60 @@
 #include <fstream>
 
 #include "inversoMult.h"
+#include "emisor.h"
+#include "receptor.h"
 
-using std::cin;
-using std::cout;
-using std::endl;
+using namespace std;
+
+//Cifrado Afín
+
+string alfabeto{"abcdefghijklmnopqrstuvwxyz \n"};
+int alfabetoLength = alfabeto.length();
 
 int main()
 {
-    int num, mod, resultado;
-    std::ifstream plano("/home/alonso/Escritorio/Cifrados/CifradoTxts/plano");
-    std::fstream cifrado("/home/alonso/Escritorio/Cifrados/CifradoTxts/cifrado");
-    std::ofstream plano2("/home/alonso/Escritorio/Cifrados/CifradoTxts/plano2");
+    int clave, inverso, cteDesplazamiento;
+    string cadenaMensaje, auxCadena, cifradoCadena, descifradoCadena;
+    InversoMultModular invMult(alfabetoLength);
 
+    ifstream mensaje;
+    fstream cifrado;
+    ofstream descifrado;
 
+    mensaje.open("/home/alonso/Escritorio/Cifrados/CifradoTxts/mensaje");
+    cifrado.open("/home/alonso/Escritorio/Cifrados/CifradoTxts/cifrado");
+    descifrado.open("/home/alonso/Escritorio/Cifrados/CifradoTxts/descifrado");    
 
-    cout << "numero: ";
-    cin >> num;
-
-    while (num >= 0)
+    while (std::getline(mensaje, auxCadena))
     {
-        cout << "mod: ";
-        cin.ignore();
-        cin >> mod;
-        InversoMultModular inversoM(mod);
-        resultado = inversoM.inversoMult(num);
-        if (resultado == -1)
-            cout << "no tiene inverso multiplicativo" << endl << endl;
-        else
-            cout << "su inverso multiplicativo es: " << resultado << endl << endl;
-        cout << "numero: ";
-        cin.ignore();
-        cin >> num;
+        cadenaMensaje += auxCadena;
+        cadenaMensaje += '\n';
     }
+    cout << "ingrese una clave: ";
+    cin >> clave;
+    
+    while (invMult.inversoMult(clave) == -1)
+    {
+        cout << "ingrese una clave: ";
+        cin >> clave;
+    }
+
+    cteDesplazamiento = 3;
+
+    Emisor emisor(clave, cteDesplazamiento);
+    cifradoCadena = emisor.cifrar(cadenaMensaje);
+    cout << cifradoCadena << endl;
+    cifrado << cifradoCadena;
+
+    inverso = invMult.inversoMult(clave);
+    Receptor receptor(inverso, cteDesplazamiento);
+    descifradoCadena = receptor.descifrar(cifradoCadena);
+    cout << descifradoCadena << endl;
+    descifrado << descifradoCadena;
+
+    mensaje.close();
+    cifrado.close();
+    descifrado.close();
 
     return 0;
 }
