@@ -1,0 +1,6 @@
+# depslib dependency file v1.0
+1476389778 source:c:\users\acerp\desktop\juegodelaoca\main.cpp
+	<iostream>
+	<cstdlib>
+	<ctime>
+

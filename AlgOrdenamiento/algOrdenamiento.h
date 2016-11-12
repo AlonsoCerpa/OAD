@@ -44,7 +44,7 @@ void cocktailSort(int *firstElem, int *lastElem)
 
 		if (subida)
 		{
-			for (variablePos = firstElem; variablePos != lastElem; ++variablePos)
+			for (variablePos = firstElem; variablePos < lastElem; ++variablePos)
 			{
 				if (*variablePos > *(variablePos + 1))
 				{
@@ -58,7 +58,7 @@ void cocktailSort(int *firstElem, int *lastElem)
 
 		else
 		{
-			for (variablePos = lastElem; variablePos != firstElem; --variablePos)
+			for (variablePos = lastElem; variablePos > firstElem; --variablePos)
 			{
 				if (*variablePos < *(variablePos - 1))
 				{
@@ -79,9 +79,8 @@ void selectionSort(int *firstElem, int *lastElem)
 
 	for ( ; firstElem < lastElem; ++firstElem)
 	{
-		variablePos = firstElem;
-		posMenorElem = variablePos;
-		++variablePos;
+		variablePos = firstElem + 1;
+		posMenorElem = firstElem;
 
 		for ( ; variablePos <= lastElem; ++variablePos)
 		{
@@ -113,15 +112,14 @@ void insertionSort(int *firstElem, int *lastElem)
 void quickSort(int *first, int *last)
 {
 	int pivot = *(first + (last - first) / 2);
-	int aux;
 	int *auxFirst = first;
 	int *auxLast = last;
 
 	while (first <= last)
 	{
-		while (*(first) < pivot)
+		while (*first < pivot)
 			++first;
-		while (*(last) > pivot)
+		while (*last > pivot)
 			--last;
 		if (first <= last)
 		{
